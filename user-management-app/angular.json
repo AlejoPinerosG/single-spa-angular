@@ -55,7 +55,10 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
             },
             "development": {
               "optimization": false,
@@ -76,11 +79,11 @@
             }
           },
           "defaultConfiguration": "development",
-          	"options": {
-						"proxyConfig": "proxy.conf.json",
-						"port": 4200,
-						"publicHost": "http://localhost:4200"
-					}
+          "options": {
+            "proxyConfig": "proxy.conf.json",
+            "port": 4200,
+            "publicHost": "http://localhost:4200"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
