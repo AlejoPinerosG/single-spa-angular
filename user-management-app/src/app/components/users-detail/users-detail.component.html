@@ -1,0 +1,97 @@
+<div class="container-fluid">
+  <div class="bg-white w-100 h-100 border p-4 ">
+    <div class="d-flex flex-row-reverse">
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-3">
+        <div class="example-button-container">
+          <button mat-flat-button extended (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            Regresar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-3 mx-auto">
+        <h4 class="text-center">Detalles de usuario</h4>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title class="m-1">{{usuarioDetail.login}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="usuarioDetail.avatar" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <form [formGroup]="userForm">
+            <div class="row d-flex justify-content-center">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-3 mx-auto">
+                <mat-form-field class="example-full-width" disabled>
+                  <mat-label>ID</mat-label>
+                  <input matInput formControlName="id">
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-3 mx-auto">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Login</mat-label>
+                  <input matInput formControlName="login">
+                  <mat-error *ngIf="userForm.get('login')?.hasError('required')">
+                    Login es requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-3 mx-auto">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Score</mat-label>
+                  <input matInput formControlName="score">
+                  <mat-error *ngIf="userForm.get('score')?.hasError('required')">
+                    Score es requerido
+                  </mat-error>
+                  <mat-error *ngIf="userForm.get('score')?.hasError('pattern')">
+                    Score debe ser solo numeros
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-3 mx-auto">
+                <mat-form-field class="example-full-width">
+                  <mat-label>URL</mat-label>
+                  <input matInput formControlName="URL">
+                  <mat-error *ngIf="userForm.get('URL')?.hasError('required')">
+                    URL es requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="example-button-row" *ngIf="!isEditMode">
+            <div class="example-flex-container">
+              <div class="example-button-container">
+                <button mat-raised-button extended (click)="enableFormFields()">
+                  <mat-icon>edit</mat-icon>
+                  Editar
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="example-button-row" *ngIf="isEditMode">
+            <div class="example-flex-container">
+              <div class="example-button-container">
+                <button mat-raised-button extended (click)="saveChanges()">
+                  <mat-icon>save</mat-icon>
+                  Guardar
+                </button>
+              </div>
+              <div class="example-button-container">
+                <button mat-flat-button extended (click)="cancelEdit()">
+                  <mat-icon>cancel</mat-icon>
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
