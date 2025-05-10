@@ -35,7 +35,6 @@ export class UsersDetailComponent {
   public isEditMode = false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
-    // Inicializar el formulario con validaciones
     this.userForm = this.fb.group({
       id: [{ value: '', disabled: true }],
       login: ['', [Validators.required, Validators.minLength(3)]],
@@ -52,10 +51,8 @@ export class UsersDetailComponent {
   captureLogin(): void {
     this.route.params.subscribe(params => {
       this.idUser = params['id'];
-      console.log('ID User:', this.idUser);
       this.dataSource = JSON.parse(window.localStorage.getItem('users') || '[]');
       this.usuarioDetail = this.dataSource.find((user) => user.id == this.idUser) || { id: '', login: '', score: '', url: '', avatar: '' };
-      console.log('Usuario Detalle:', this.usuarioDetail);
       this.userForm.patchValue({
         id: this.usuarioDetail.id,
         login: this.usuarioDetail.login,
@@ -67,7 +64,6 @@ export class UsersDetailComponent {
 
   enableFormFields(): void {
     this.isEditMode = true;
-    // Habilitar todos los campos del formulario excepto el campo 'id'
     Object.keys(this.userForm.controls).forEach(controlName => {
       if (controlName !== 'id') {
         this.userForm.get(controlName)?.enable();

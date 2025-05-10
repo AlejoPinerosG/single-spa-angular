@@ -66,22 +66,22 @@ private generateUniqueId(): void {
     if (this.userForm.valid) {
       const users = JSON.parse(window.localStorage.getItem('users') || '[]');
       const newUser = {
+        avatar: this.avatarPreview,
         id: this.userForm.get('id')?.value,
         login: this.userForm.get('login')?.value,
-        score: this.userForm.get('score')?.value,
-        URL: this.userForm.get('URL')?.value,
-        avatar: this.avatarPreview // Guardar la vista previa como base64
+        score: Number(this.userForm.get('score')?.value),
+        url: this.userForm.get('URL')?.value,
+
       };
       users.push(newUser);
       window.localStorage.setItem('users', JSON.stringify(users));
-      console.log('Usuario creado:', newUser);
       this.userForm.reset();
       this.avatarPreview = null;
       this.selectedFileName = null;
       this.router.navigate(['/usuarios']);
     } else {
       console.error('El formulario no es válido.');
-      this.userForm.markAllAsTouched(); // Marcar todos los campos como "tocados" para mostrar errores
+      this.userForm.markAllAsTouched();
     }
   }
 

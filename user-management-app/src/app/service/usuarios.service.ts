@@ -14,11 +14,10 @@ export class UsuariosService {
   constructor(private http: HttpClient) { }
 
   getUsuarios(params: any): Observable<any> {
-    return this.http.get<ApiResponse<usuarios[]>>(environment.enpoints.host + environment.urls.search + environment.urls.users, { params })
+    const url = 'https://cors-anywhere.herokuapp.com/https://api.github.com/search/users?q=YOUR_NAME';
+    return this.http.get<ApiResponse<usuarios[]>>(url, { params })
       .pipe(
         map((response: ApiResponse<any[]>) => {
-          // Mapea los datos para capturar solo los elementos deseados
-          console.log('response', response);
             return response.items.map((usuario: any) => ({
             avatar: usuario.avatar_url,
             login: usuario.login,

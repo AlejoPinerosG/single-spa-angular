@@ -57,7 +57,6 @@ export class UsersComponent implements OnInit {
           next: (res) => {
             this.dataSource = res;
             window.localStorage.setItem('users', JSON.stringify(this.dataSource));
-            console.log('getUsuarios', this.dataSource);
           },
           error: (error) => {
             console.log('getConsultCont', error);
@@ -66,7 +65,6 @@ export class UsersComponent implements OnInit {
       );
     } else {
       this.dataSource = JSON.parse(existData);
-      console.log('getUsuarios', this.dataSource);
     }
   }
 
@@ -79,7 +77,6 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(user: usuarios) {
-    console.log('deleteUser', user);
     const index = this.dataSource.findIndex(u => u.login === user.login);
     if (index > -1) {
       this.dataSource.splice(index, 1);
