@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
     enpoints: {
-    host: 'https://api.github.com/',
+    host: 'https://cors-anywhere.herokuapp.com/https://api.github.com/',
   },  
   urls: {
     search: 'search/',

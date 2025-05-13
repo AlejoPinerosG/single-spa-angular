@@ -10,6 +10,12 @@ import { usuario } from '../../interfaces/usersDetail';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
+/**
+ * Componente para la visualización y edición de los detalles de un usuario.
+ * Este componente permite mostrar los datos de un usuario, habilitar la edición de los campos
+ * y guardar los cambios en el `localStorage`.
+ */
+
 @Component({
   selector: 'app-users-detail',
   standalone: true,
@@ -31,14 +37,21 @@ export class UsersDetailComponent {
   userForm: FormGroup;
   public idUser = '';
   public dataSource: Array<usuario> = [];
-  public usuarioDetail: usuario = { id: '', login: '', score: '', url: '',avatar: '' };
+  public usuarioDetail: usuario = { id: '', login: '', score: '', url: '', avatar: '' };
   public isEditMode = false;
 
+  /**
+ * Constructor del componente.
+ * @param fb - FormBuilder para inicializar el formulario reactivo.
+ * @param route - ActivatedRoute para manejar parámetros de la ruta.
+ * @param router - Router para navegar entre rutas.
+ */
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
+    // Inicializa el formulario con validaciones.
     this.userForm = this.fb.group({
       id: [{ value: '', disabled: true }],
       login: ['', [Validators.required, Validators.minLength(3)]],
-      score: ['', [Validators.required, Validators.minLength(1),Validators.pattern(/^[0-9]+$/)]],
+      score: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^[0-9]+$/)]],
       URL: ['', [Validators.required, Validators.minLength(10)]],
     });
     this.userForm.disable();
@@ -47,7 +60,9 @@ export class UsersDetailComponent {
   ngOnInit(): void {
     this.captureLogin();
   }
-
+  /**
+   * funcion que captura el ID del usuario desde la ruta y carga sus datos desde el `localStorage`.
+   */
   captureLogin(): void {
     this.route.params.subscribe(params => {
       this.idUser = params['id'];
@@ -71,6 +86,10 @@ export class UsersDetailComponent {
     });
   }
 
+    /**
+   * Funcion que guarda los cambios realizados en el formulario.
+   * Actualiza los datos del usuario en el `localStorage`.
+   */
   saveChanges(): void {
     if (this.userForm.valid) {
       const updatedUser = this.userForm.getRawValue();
@@ -97,6 +116,10 @@ export class UsersDetailComponent {
     }
   }
 
+    /**
+   * Funcion que cancela la edición del formulario.
+   * Restaura los valores originales del usuario y deshabilita el formulario.
+   */
   cancelEdit(): void {
     this.isEditMode = false;
     this.userForm.patchValue({
@@ -107,8 +130,11 @@ export class UsersDetailComponent {
     });
     this.userForm.disable();
   }
-
-    goBack(): void {
+  
+  /**
+   * Funcion que navega a la pantalla anterior (lista de usuarios).
+   */
+  goBack(): void {
     this.router.navigate(['/usuarios']);
   }
 
