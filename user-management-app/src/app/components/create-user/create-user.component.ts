@@ -47,8 +47,8 @@ export class CreateUserComponent {
     // Inicializa el formulario con validaciones.
     this.userForm = this.fb.group({
       id: [{ value: '', disabled: true }],
-      login: ['', [Validators.required, Validators.minLength(3)]],
-      score: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^[0-9]+$/)]],
+      login: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9]+$/),]],
+      score: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^[1-9][0-9]*$/),]],
       URL: ['', [Validators.required, Validators.minLength(10), Validators.pattern('https?://.+')]],
       avatar: [null, Validators.required]
     });
@@ -72,6 +72,12 @@ export class CreateUserComponent {
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!validImageTypes.includes(file.type)) {
+        console.error('El archivo seleccionado no es una imagen válida.');
+        this.userForm.get('avatar')?.setErrors({ invalidFileType: true });
+        return;
+      }
       this.selectedFileName = file.name;
       this.userForm.patchValue({ avatar: file });
       this.userForm.get('avatar')?.updateValueAndValidity();

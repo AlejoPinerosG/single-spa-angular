@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="bg-white w-100 h-100 border p-4">
-    <div class="d-flex flex-row-reverse">
-      <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 p-3">
+    <div class="row d-flex justify-content-center">
+      <div class="col-10 col-sm-9 col-md-9 col-lg-9 col-xl-9 p-3">
         <div class="example-button-container">
           <button mat-flat-button extended (click)="goBack()">
             <mat-icon>arrow_back</mat-icon>
@@ -24,7 +24,11 @@
                 <button mat-raised-button color="primary" (click)="fileInput.click()">Seleccionar Avatar</button>
                 <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
                 <p *ngIf="selectedFileName">{{ selectedFileName }}</p>
+                <mat-error *ngIf="userForm.get('avatar')?.errors?.['invalidFileType']">
+                  El archivo seleccionado debe ser una imagen (jpg, png).
+                </mat-error>
               </div>
+
               <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 p-3 mx-auto">
                 <mat-form-field class="example-full-width" disabled>
                   <mat-label>ID</mat-label>
@@ -35,8 +39,14 @@
                 <mat-form-field class="example-full-width">
                   <mat-label>Login</mat-label>
                   <input matInput formControlName="login">
-                  <mat-error *ngIf="userForm.get('login')?.hasError('required')">
-                    Login es requerido
+                  <mat-error *ngIf="userForm.get('login')?.errors?.['required']">
+                    El campo "Login" es obligatorio.
+                  </mat-error>
+                  <mat-error *ngIf="userForm.get('login')?.errors?.['minlength']">
+                    El "Login" debe tener al menos 3 caracteres.
+                  </mat-error>
+                  <mat-error *ngIf="userForm.get('login')?.errors?.['pattern']">
+                     El "Login" solo puede contener letras y números.
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -44,11 +54,11 @@
                 <mat-form-field class="example-full-width">
                   <mat-label>Score</mat-label>
                   <input matInput formControlName="score">
-                  <mat-error *ngIf="userForm.get('score')?.hasError('required')">
-                    Score es requerido
+                  <mat-error *ngIf="userForm.get('score')?.errors?.['required']">
+                    El campo "Score" es obligatorio.
                   </mat-error>
-                  <mat-error *ngIf="userForm.get('score')?.hasError('pattern')">
-                    Score debe ser solo numeros
+                  <mat-error *ngIf="userForm.get('score')?.errors?.['pattern']">
+                    El "Score" debe ser solo números.
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -56,11 +66,11 @@
                 <mat-form-field class="example-full-width">
                   <mat-label>URL</mat-label>
                   <input matInput formControlName="URL">
-                  <mat-error *ngIf="userForm.get('URL')?.hasError('required')">
-                    URL es requerido
+                  <mat-error *ngIf="userForm.get('URL')?.errors?.['required']">
+                    El campo "URL" es obligatorio.
                   </mat-error>
-                  <mat-error *ngIf="userForm.get('URL')?.hasError('pattern')">
-                    URL debe ser una URL valida
+                  <mat-error *ngIf="userForm.get('URL')?.errors?.['pattern']">
+                     La "URL" no es válida.
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -71,7 +81,7 @@
     </div>
     <div class="row d-flex justify-content-center">
       <div class="example-button-row">
-        <div class="example-flex-container">
+        <div class="d-flex justify-content-evenly">
           <div class="example-button-container">
             <button mat-raised-button extended (click)="onSubmit()">
               <mat-icon>save</mat-icon>

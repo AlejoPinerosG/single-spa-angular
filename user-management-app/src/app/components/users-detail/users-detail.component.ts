@@ -50,8 +50,8 @@ export class UsersDetailComponent {
     // Inicializa el formulario con validaciones.
     this.userForm = this.fb.group({
       id: [{ value: '', disabled: true }],
-      login: ['', [Validators.required, Validators.minLength(3)]],
-      score: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^[0-9]+$/)]],
+      login: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9]+$/),]],
+      score: ['', [Validators.required, Validators.minLength(1), Validators.pattern(/^[1-9][0-9]*$/),]],
       URL: ['', [Validators.required, Validators.minLength(10)]],
     });
     this.userForm.disable();

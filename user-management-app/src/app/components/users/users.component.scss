@@ -4,26 +4,72 @@
   width: 70%;
 }
 
-.example-full-width { 
-  width: 70%;
+.example-full-width {
+  width: 100%;
 }
 
-table { 
-  width: 50%;
+table {
+  width: 100%;
 }
-.img-list { 
+
+.img-list {
   width: 4rem;
   height: 4rem;
   object-fit: cover;
   border-radius: 50%;
-  margin:0.5rem;
+  margin: 0.5rem;
 }
 
 .mat-mdc-table {
-    min-width: 50%;
-    border: 0;
-    border-spacing: 0;
-    table-layout: auto;
-    white-space: normal;
-    background-color: var(--mat-table-background-color, var(--mat-sys-surface));
+  min-width: 100%;
+  border: 0;
+  border-spacing: 0;
+  table-layout: auto;
+  white-space: normal;
+  background-color: var(--mat-table-background-color, var(--mat-sys-surface));
+}
+
+.container-fluid {
+  padding: 1rem;
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .table-responsive {
+    overflow-x: auto; // Permite el desplazamiento horizontal en pantallas pequeñas.
+  }
+
+  .img-list {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover; // Asegura que la imagen mantenga su proporción.
+  }
+
+  th,
+  td {
+    text-align: center; // Centra el contenido horizontalmente.
+    vertical-align: middle; // Centra el contenido verticalmente.
+    white-space: nowrap; // Evita que el contenido de las celdas se ajuste en varias líneas.
+  }
+
+  @media (max-width: 768px) {
+    .example-button-container {
+      text-align: center;
+
+      button {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    .d-flex {
+      flex-direction: column; // Cambia la dirección de los botones en pantallas pequeñas.
+    }
+
+    .table-responsive {
+      margin-top: 1rem;
+    }
+  }
 }
